@@ -1,0 +1,20 @@
+plugins {
+    id 'com.android.application'
+}
+
+android {
+    namespace 'br.com.experimento.autododge'
+    compileSdk 35
+
+    defaultConfig {
+        applicationId 'br.com.experimento.autododge'
+        minSdk 29
+        targetSdk 34
+        versionCode 3
+        versionName '0.3-calibracao-experimental'
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
+    }
+}

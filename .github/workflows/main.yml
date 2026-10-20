@@ -1,4 +1,3 @@
-
 name: Compilar AutoDodge APK
 
 on:
@@ -19,11 +18,13 @@ jobs:
           distribution: temurin
           java-version: '17'
 
-      - name: Instalar Android SDK
-        uses: android-actions/setup-android@v3
-
-      - name: Instalar SDK 35
-        run: sdkmanager 'platforms;android-35' 'build-tools;35.0.0'
+      - name: Instalar SDK Android
+        run: |
+          SDK_ROOT="${ANDROID_HOME:-/usr/local/lib/android/sdk}"
+          SDKMANAGER="$(find "$SDK_ROOT/cmdline-tools" -type f -name sdkmanager | sort -V | tail -n 1)"
+          echo "Usando SDK Manager: $SDKMANAGER"
+          yes | "$SDKMANAGER" --licenses || true
+          "$SDKMANAGER" "platforms;android-35" "build-tools;35.0.0"
 
       - name: Configurar Gradle
         uses: gradle/actions/setup-gradle@v4
@@ -38,4 +39,3 @@ jobs:
         with:
           name: AutoDodge-APK
           path: app/build/outputs/apk/debug/app-debug.apk
-
